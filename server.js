@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-mongoose.connect('mongodb://127.0.0.1:27017/training_management')
+mongoose.connect('mongodb+srv://727724euec016_db_anbu:dbanbu123@cluster0.lbd1lor.mongodb.net/?appName=Cluster0')
 .then(() => console.log('MongoDB Connected'))
 .catch((err) => console.log(err));
 
@@ -46,7 +46,9 @@ async (req, res) => {
     res.json(participants);
 
 });
-app.listen(5000, () => {
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
     console.log('Server running on port 5000');
 });
 app.post('/add-session', async (req, res) => {
