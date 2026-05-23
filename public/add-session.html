@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Session</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .container{
+
+            width:400px;
+            margin:80px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+        }
+
+        input{
+
+            width:100%;
+            padding:12px;
+            margin-bottom:20px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+
+            width:100%;
+            padding:12px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Add Session</h1>
+
+        <form id="sessionForm">
+
+            <input type="text"
+            id="sessionName"
+            placeholder="Session Name"
+            required>
+
+            <input type="text"
+            id="instructor"
+            placeholder="Instructor"
+            required>
+
+            <input type="number"
+            id="duration"
+            placeholder="Duration"
+            required>
+
+            <button type="submit">
+                Add Session
+            </button>
+
+        </form>
+
+    </div>
+
+    <script>
+
+        document.getElementById('sessionForm')
+        .addEventListener('submit', async function(e){
+
+            e.preventDefault();
+
+            const data = {
+
+                sessionName:
+                document.getElementById('sessionName').value,
+
+                instructor:
+                document.getElementById('instructor').value,
+
+                duration:
+                document.getElementById('duration').value
+            };
+
+            const response = await fetch(
+            'http://localhost:5000/add-session',
+            {
+                method:'POST',
+
+                headers:{
+                    'Content-Type':'application/json'
+                },
+
+                body:JSON.stringify(data)
+            });
+
+            const result = await response.text();
+
+            alert(result);
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Add Participant</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+        }
+
+        .container{
+
+            width:400px;
+            margin:80px auto;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        input{
+
+            width:100%;
+            padding:12px;
+            margin-bottom:20px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+
+            width:100%;
+            padding:12px;
+            background:#007bff;
+            color:white;
+            border:none;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Add Participant</h1>
+
+        <form id="participantForm">
+
+            <input type="text"
+            id="name"
+            placeholder="Participant Name"
+            required>
+
+            <input type="email"
+            id="email"
+            placeholder="Email"
+            required>
+
+            <input type="text"
+            id="phone"
+            placeholder="Phone"
+            required>
+
+            <input type="text"
+            id="session"
+            placeholder="Enrolled Session"
+            required>
+
+            <input type="date"
+id="joiningDate">
+
+<input type="date"
+id="completionDate">
+
+<select id="attendance">
+
+    <option value="Present">
+        Present
+    </option>
+
+    <option value="Absent">
+        Absent
+    </option>
+
+</select>
+
+            <button type="submit">
+                Add Participant
+            </button>
+
+        </form>
+
+    </div>
+
+    <script>
+
+        document.getElementById('participantForm')
+        .addEventListener('submit',
+        async function(e){
+
+            e.preventDefault();
+
+            const data = {
+
+    name:
+    document.getElementById('name').value,
+
+    email:
+    document.getElementById('email').value,
+
+    phone:
+    document.getElementById('phone').value,
+
+    session:
+    document.getElementById('session').value,
+
+    joiningDate:
+    document.getElementById('joiningDate').value,
+
+    completionDate:
+    document.getElementById('completionDate').value,
+
+    attendance:
+    document.getElementById('attendance').value
+};
+
+            const response = await fetch(
+            'http://localhost:5000/add-participant',
+            {
+                method:'POST',
+
+                headers:{
+                    'Content-Type':'application/json'
+                },
+
+                body:JSON.stringify(data)
+            });
+
+            const result =
+            await response.text();
+
+            alert(result);
+
+        });
+
+    </script>
+
+</body>
+
+</html>

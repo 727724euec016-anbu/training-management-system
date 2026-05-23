@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>View Participants</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#70e4bf;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        .card{
+
+            background:white;
+            width:400px;
+            margin:20px auto;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>All Participants</h1>
+
+    <div id="participants"></div>
+
+    <script>
+
+        async function loadParticipants(){
+
+            const response =
+            await fetch(
+            'http://localhost:5000/participants');
+
+            const data =
+            await response.json();
+
+            let output = '';
+
+            data.forEach(participant => {
+
+                output += `
+
+                <div class="card">
+
+                    <h2>${participant.name}</h2>
+
+                    <p>
+                    Email:
+                    ${participant.email}
+                    </p>
+
+                    <p>
+                    Phone:
+                    ${participant.phone}
+                    </p>
+
+                    <p>
+                    Session:
+                    ${participant.session}
+                    </p>
+
+                    <p>
+                     Joining Date:
+                     ${participant.joiningDate}
+                     </p>
+
+                       <p>
+                   Completion Date:
+                   ${participant.completionDate}
+                     </p>
+
+                   <p>
+                   Attendance:
+                   ${participant.attendance}
+                   </p>
+
+                </div>
+                `;
+            });
+
+            document.getElementById('participants')
+            .innerHTML = output;
+        }
+
+        loadParticipants();
+
+    </script>
+
+</body>
+
+</html>

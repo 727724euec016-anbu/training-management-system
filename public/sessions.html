@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>All Sessions</title>
+
+    <style>
+
+        body{
+            font-family:Arial;
+            background:#f4f4f4;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        .card{
+
+            background:white;
+            width:400px;
+            margin:20px auto;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 0 10px rgba(0,0,0,0.2);
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1>All Sessions</h1>
+
+    <div id="sessions"></div>
+
+    <script>
+
+        async function loadSessions(){
+
+            const response =
+            await fetch('http://localhost:5000/sessions');
+
+            const data = await response.json();
+
+            let output = '';
+
+            data.forEach(session => {
+
+                output += `
+
+                <div class="card">
+
+                    <h2>${session.sessionName}</h2>
+
+                    <p>
+                    Instructor:
+                    ${session.instructor}
+                    </p>
+
+                    <p>
+                    Duration:
+                    ${session.duration}
+                    </p>
+
+                </div>
+                `;
+            });
+
+            document.getElementById('sessions')
+            .innerHTML = output;
+        }
+
+        loadSessions();
+
+    </script>
+
+</body>
+
+</html>
